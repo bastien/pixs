@@ -1,0 +1,31 @@
+<li>
+  <div class="rating left <%= rating_color(film.imdb_rating) %>">
+    <% if film.imdb_rating.nil? || film.imdb_rating == 0.0 %>
+      --
+    <% else %>
+      <%= film.imdb_rating %>
+    <% end %>
+  </div>
+  <div class="title left">
+    <% if film.festival_url %>
+      <%= link_to film.title, film.festival_url %>
+    <% else %>
+      <%= film.title %>
+    <% end %>
+  </div>
+  <div class="left details">
+    (<% if film.imdb_url.present? %>
+      <%= link_to "imdb", film.imdb_url %>
+    <% else %>
+      <%= link_to "add imdb url", edit_film_path(film) %>
+    <% end %>
+    )
+  </div>
+  <div class="left details">
+    <%= film.country %>
+  </div>
+  <div class="left details">
+    <%= film.genre %>
+  </div>
+  <div class="clear"></div>
+</li>
