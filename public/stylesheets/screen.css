@@ -1,6 +1,7 @@
 *{
   font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
 }
+
 ul{
   list-style-type: none;
 }
@@ -8,6 +9,12 @@ ul{
 li{
   line-height: 50px;
   margin-bottom: 10px;
+}
+
+#footer{
+  margin-top: 20px;
+  color: darkgrey;
+  font-size: 10pt;
 }
 
 .left{
