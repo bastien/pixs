@@ -5,11 +5,8 @@ class FilmsController < ApplicationController
   end
   
   def edit
-    if @film.imdb_url.nil?
-      @film = Film.find(params[:id])
-    else
-      redirect_to films_path
-    end
+    @film = Film.find(params[:id])
+    redirect_to films_path and return unless @film.imdb_url.nil?
   end
   
   def update
