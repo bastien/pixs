@@ -1,4 +1,4 @@
-<li>
+<li id="<%= dom_id(film) %>">
   <div class="rating left <%= rating_color(film.imdb_rating) %>">
     <% if film.imdb_rating.nil? || film.imdb_rating == 0.0 %>
       --
