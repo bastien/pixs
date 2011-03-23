@@ -40,6 +40,18 @@ class MovieImport
       end
     end
     
+    def fetch_from_youtube
+      Film.where(["imdb_url IS NOT NULL AND trailer_url IS NULL"]).each do |film|
+        url = "http://www.youtube.com/results?search_category=1&search_type=videos&search_query=#{CGI::escape(film.title + " trailer")}"
+        doc = Nokogiri::HTML(open(url))
+        result = doc.css(".result-item").first
+        if result && result.content.match(/#{film.title}/i)
+          trailer_uri = result.css("a").first["href"]
+          film.update_attribute :trailer_url, "http://www.youtube.com" + trailer_uri + "&html5=True"
+        end
+      end
+    end
+    
     def fetch_from_festival
       urls = [
         "http://www.cphpix.dk/p/tit.lasso",
