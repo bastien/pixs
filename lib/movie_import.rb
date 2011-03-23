@@ -45,8 +45,12 @@ class MovieImport
         url = "http://www.youtube.com/results?search_category=1&search_type=videos&search_query=#{CGI::escape(film.title + " trailer")}"
         doc = Nokogiri::HTML(open(url))
         result = doc.css(".result-item").first
+        result_alternative = doc.css(".result-item")[1]
         if result && result.content.match(/#{film.title}/i)
           trailer_uri = result.css("a").first["href"]
+          film.update_attribute :trailer_url, "http://www.youtube.com" + trailer_uri + "&html5=True"
+        elsif result_alternative && result_alternative.content.match(/#{film.title}/i)
+          trailer_uri = result_alternative.css("a").first["href"]
           film.update_attribute :trailer_url, "http://www.youtube.com" + trailer_uri + "&html5=True"
         end
       end
