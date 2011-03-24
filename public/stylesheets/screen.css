@@ -11,6 +11,30 @@ li{
   margin-bottom: 10px;
 }
 
+ul#sortingOptions{
+  display: inline;
+}
+
+ul#sortingOptions li{
+  display: inline;
+  font-size: 10pt;
+  border-left: 1px solid darkgrey;
+  padding: 0px 5px; 
+}
+
+ul#sortingOptions li a{
+  text-decoration:none;
+  color: darkgrey;
+}
+
+ul#sortingOptions li.active a{
+  color: grey;
+}
+
+ul#sortingOptions li.first{
+  border-left: none;
+}
+
 #footer{
   margin-top: 20px;
   color: darkgrey;

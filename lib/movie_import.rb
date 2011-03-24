@@ -21,6 +21,7 @@ class MovieImport
     end
     
     def by_imdb_id(imdb_id)
+      return nil if imdb_id.nil?
       current_uri = IMDB_API + "?i=" + imdb_id
       data = Net::HTTP.get_response(URI.parse(current_uri)).body
       HashWithIndifferentAccess.new(JSON.parse(data))
