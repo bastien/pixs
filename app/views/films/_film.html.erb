@@ -24,11 +24,14 @@
     <% end %>
     )
   </div>
-  <div class="left details">
+  <div class="left details country">
     <%= film.country %>
   </div>
-  <div class="left details">
+  <div class="left details genre">
     <%= film.genre %>
+  </div>
+  <div class="left details director">
+    <%= "- #{film.director}" if film.director.present? %>
   </div>
   <div class="clear"></div>
 </li>

@@ -20,17 +20,25 @@ class Film < ActiveRecord::Base
 
   def update_imdb_data
     @skip_imdb_url = true
-    puts "imdb_id nil for #{title}" and return false if imdb_id.nil?
+    if imdb_id.nil?
+      puts "imdb_id nil for #{title}"
+      return false
+    end
     movie_hash = MovieImport.by_imdb_id(imdb_id)
-    puts "couldn't find #{imdb_id} (#{title})" and return false if movie_hash.nil?
-    update_attributes(
-      :imdb_rating  => direct_imdb_rating, # movie_hash[:Rating].to_f, # inacurate
+    if movie_hash.nil?
+      puts "couldn't find #{imdb_id} (#{title})"
+      return false
+    end
+    values = {
       :genre        => movie_hash[:Genre],
       :synopsis     => movie_hash[:Plot],
       :director     => movie_hash[:Director],
       :writer       => movie_hash[:Writer],
       :thumbnail_url => movie_hash[:Poster]
-    )
+    }
+    rating = direct_imdb_rating
+    values[:imdb_rating] = rating if rating.present? # movie_hash[:Rating].to_f, # inacurate
+    update_attributes(values)
   end
   
   # Not using the API for this one because not accurate
