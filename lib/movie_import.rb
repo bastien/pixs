@@ -6,38 +6,24 @@ require 'nokogiri'
 class MovieImport
   class << self
     
-    def fetch
-      uri = "http://www.deanclatworthy.com/imdb/?q="
-
-      file = File.new(File.join(Rails.root, "cphpix_2011.txt"))
-      file.readlines.each do |movie_name|
-        movie_name.strip!
-        existing_movie = Film.find_by_title(movie_name)
-        if movie_name.first == "#" || existing_movie.present?
-          # puts "skipping movie #{movie_name}"
+    IMDB_API = "http://www.imdbapi.com/"
+    
+    def by_imdb_title(title)
+        current_uri = IMDB_API + "?t=" + CGI::escape(title)
+        data = Net::HTTP.get_response(URI.parse(current_uri)).body
+        movie_hash = HashWithIndifferentAccess.new(JSON.parse(data))
+        if movie_hash["Response"] && movie_hash["Response"] == "Parse Error"
+          puts "[MovieImport] Couldn't find: #{title}"
+          return nil
         else
-          current_uri = uri + movie_name.gsub(/[\s]/, '+')
-          data = Net::HTTP.get_response(URI.parse(current_uri)).body
-          movie = HashWithIndifferentAccess.new(JSON.parse(data))
-          if movie.has_key? :error
-            raise "Exceeded API usage limit" if movie[:error] == "Exceeded API usage limit"
-            puts movie
-            puts "Coudln't find: #{movie_name} puts #{current_uri}"
-          else
-            if Film.find_by_title(movie[:title]).blank?
-              Film.create!(
-                :title => movie[:title],
-                :imdb_url => movie[:imdburl],
-                :imdb_rating => movie[:rating],
-                :country => movie[:country],
-                :genre => movie[:genres]
-                )
-            else
-              puts "Already in db: #{movie_name} as (#{movie[:title]})"
-            end
-          end
+          return movie_hash
         end
-      end
+    end
+    
+    def by_imdb_id(imdb_id)
+      current_uri = IMDB_API + "?i=" + imdb_id
+      data = Net::HTTP.get_response(URI.parse(current_uri)).body
+      HashWithIndifferentAccess.new(JSON.parse(data))
     end
     
     def fetch_from_youtube
