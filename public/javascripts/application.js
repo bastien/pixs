@@ -26,4 +26,13 @@ $(function(){
     }
     $('#filmList').sort(sortParams);
   });
+  
+  $('#dialog').dialog({
+    autoOpen: false,
+    height: 'auto',
+    width: 'auto',
+    resizable: false,
+    draggable: false,
+    modal: true 
+  });
 });

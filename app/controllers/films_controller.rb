@@ -1,5 +1,13 @@
 class FilmsController < ApplicationController
-
+  
+  def show
+    @film = Film.find(params[:id])
+    respond_to do |format|
+      format.html{ redirect_to @film.trailer_url }
+      format.js
+    end
+  end
+  
   def index
     @films = Film.order("imdb_rating DESC")
   end

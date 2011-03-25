@@ -17,6 +17,10 @@ class Film < ActiveRecord::Base
     return nil unless imdb_url?
     imdb_url.gsub("http://www.imdb.com/title/", "").gsub("/", "")
   end
+  
+  def youtube_id
+    trailer_url.match(/http:\/\/www.youtube.com\/watch\?v=([a-zA-Z0-9]*)\??/).to_a.last
+  end
 
   def update_imdb_data
     @skip_imdb_url = true
