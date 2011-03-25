@@ -19,7 +19,7 @@ class Film < ActiveRecord::Base
   end
   
   def youtube_id
-    trailer_url.match(/http:\/\/www.youtube.com\/watch\?v=([a-zA-Z0-9]*)\??/).to_a.last
+    trailer_url.match(/http:\/\/www.youtube.com\/watch\?v=([a-zA-Z0-9\-\_]*)\??/).to_a.last
   end
 
   def update_imdb_data
