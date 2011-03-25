@@ -2,6 +2,23 @@
   font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
 }
 
+body{
+  margin:0px;
+  padding: 0px;
+}
+
+h1{
+  margin: 0px;
+  padding: 5px;
+  font-size: 12pt;
+  color: white;
+  font-weight: normal;
+}
+
+#top{
+  background-color: gray;
+}
+
 ul{
   list-style-type: none;
 }
