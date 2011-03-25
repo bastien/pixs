@@ -33,6 +33,7 @@ $(function(){
     width: 'auto',
     resizable: false,
     draggable: false,
-    modal: true 
+    modal: true,
+    close: function(event, ui){ $('#dialog').html("");}
   });
 });
