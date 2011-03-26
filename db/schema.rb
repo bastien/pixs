@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110324213119) do
+ActiveRecord::Schema.define(:version => 20110326130553) do
 
   create_table "films", :force => true do |t|
     t.string   "title"
@@ -27,6 +27,7 @@ ActiveRecord::Schema.define(:version => 20110324213119) do
     t.string   "festival_url"
     t.string   "director"
     t.string   "writer"
+    t.integer  "year"
   end
 
 end

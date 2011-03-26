@@ -4,6 +4,7 @@ require 'nokogiri'
 class Film < ActiveRecord::Base
   attr_accessor :skip_imdb_url
   
+  after_create :init_imdb_data
   after_save :get_imdb_data
   
   def get_imdb_data
@@ -21,52 +22,29 @@ class Film < ActiveRecord::Base
   def youtube_id
     trailer_url.match(/http:\/\/www.youtube.com\/watch\?v=([a-zA-Z0-9\-\_]*)\??/).to_a.last
   end
-
+  
   def update_imdb_data
     @skip_imdb_url = true
     if imdb_id.nil?
       puts "imdb_id nil for #{title}"
       return false
     end
-    movie_hash = MovieImport.by_imdb_id(imdb_id)
-    if movie_hash.nil?
-      puts "couldn't find #{imdb_id} (#{title})"
-      return false
-    end
-    values = {
-      :genre        => movie_hash[:Genre],
-      :synopsis     => movie_hash[:Plot],
-      :director     => movie_hash[:Director],
-      :writer       => movie_hash[:Writer],
-      :thumbnail_url => movie_hash[:Poster]
-    }
-    rating = direct_imdb_rating
-    values[:imdb_rating] = rating if rating.present? # movie_hash[:Rating].to_f, # inacurate
-    update_attributes(values)
-  end
-  
-  # Not using the API for this one because not accurate
-  #
-  def direct_imdb_rating
-    return nil if imdb_url.nil?
-    doc = Nokogiri::HTML(open(imdb_url))
-    rating = doc.css(".rating-rating").first.content.split("/").first.to_f
+    imdb = ImdbParty::Imdb.new
+    movie = imdb.find_movie_by_id(imdb_id)
+    update_imdb_attributes(movie)
   end
   
   def init_imdb_data
-    @skip_imdb_url = true
-    movie_hash = MovieImport.by_imdb_title(title)
-    return false if movie_hash.nil?
-    update_attributes(
-      :imdb_url     => "http://www.imdb.com/title/"+movie_hash[:ID]+"/",
-      :imdb_rating  => movie_hash[:Rating].to_f,
-      :country      => movie_hash[:Country],
-      :genre        => movie_hash[:Genre],
-      :synopsis     => movie_hash[:Plot],
-      :director     => movie_hash[:Director],
-      :writer       => movie_hash[:Writer],
-      :thumbnail_url => movie_hash[:Poster]
-    )
+    if imdb_url.blank?
+      @skip_imdb_url = true
+      imdb = ImdbParty::Imdb.new
+      results = imdb.find_by_title(title)
+      return false if results.empty?
+      result = results.find{|r| r[:year].to_s == year.to_s } if year.present?
+      result ||= results.first
+      movie = imdb.find_movie_by_id(result[:imdb_id])
+      update_imdb_attributes(movie)
+    end
   end
   
   class << self
@@ -81,4 +59,20 @@ class Film < ActiveRecord::Base
       end
     end
   end
+  
+  protected
+  
+  def update_imdb_attributes(movie)
+    update_attributes(
+      :imdb_url     => "http://www.imdb.com/title/"+movie.imdb_id+"/",
+      :imdb_rating  => movie.rating,
+      #:country      => movie_hash[:Country],
+      :genre        => movie.genres.join(', '),
+      :synopsis     => movie.plot,
+      :director     => movie.directors.map(&:name).join(", "),
+      :writer       => movie.writers.map(&:name).join(", "),
+      :thumbnail_url => movie.poster_url
+    )
+  end
+  
 end

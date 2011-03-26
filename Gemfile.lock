@@ -31,9 +31,14 @@ GEM
     arel (2.0.9)
     builder (2.1.2)
     columnize (0.3.2)
+    crack (0.1.8)
     erubis (2.6.6)
       abstract (>= 1.0.0)
+    httparty (0.7.4)
+      crack (= 0.1.8)
     i18n (0.5.0)
+    imdb_party (0.4.0)
+      httparty
     jquery-rails (0.2.7)
       rails (~> 3.0)
       thor (~> 0.14.4)
@@ -82,6 +87,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  imdb_party (= 0.4.0)
   jquery-rails
   json
   nokogiri

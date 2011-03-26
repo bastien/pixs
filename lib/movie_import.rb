@@ -5,28 +5,6 @@ require 'nokogiri'
 
 class MovieImport
   class << self
-    
-    IMDB_API = "http://www.imdbapi.com/"
-    
-    def by_imdb_title(title)
-        current_uri = IMDB_API + "?t=" + CGI::escape(title)
-        data = Net::HTTP.get_response(URI.parse(current_uri)).body
-        movie_hash = HashWithIndifferentAccess.new(JSON.parse(data))
-        if movie_hash["Response"] && movie_hash["Response"] == "Parse Error"
-          puts "[MovieImport] Couldn't find: #{title}"
-          return nil
-        else
-          return movie_hash
-        end
-    end
-    
-    def by_imdb_id(imdb_id)
-      return nil if imdb_id.nil?
-      current_uri = IMDB_API + "?i=" + imdb_id
-      data = Net::HTTP.get_response(URI.parse(current_uri)).body
-      HashWithIndifferentAccess.new(JSON.parse(data))
-    end
-    
     def fetch_from_youtube
       Film.where(["imdb_url IS NOT NULL AND trailer_url IS NULL"]).each do |film|
         url = "http://www.youtube.com/results?search_category=1&search_type=videos&search_query=#{CGI::escape(film.title + " trailer")}"
@@ -59,10 +37,20 @@ class MovieImport
         if film = Film.find_by_title(movie[:title])
           film.update_attributes(:festival_url => movie[:link])
         else
-          Film.create(:title => movie[:title], :festival_url => movie[:link])
+          film = Film.create(:title => movie[:title], :festival_url => movie[:link])
         end
+        get_year_from_festival(film)
       end
-      
+    end
+    
+    def get_year_from_festival(film)
+      doc = Nokogiri::HTML(open(film.festival_url))
+      info = doc.css(".header .text p").first.content
+      match_data = info.match(/\s\d{4}\s/)
+      if match_data.present?
+        year = match_data[-1].strip.to_i
+        film.update_attribute(:year, year)
+      end
     end
     
     def scan_page(url)
@@ -83,5 +71,32 @@ class MovieImport
       end
     end
     
+    # Small script to test the efficiency of IMDB-Party gem
+    #
+    def test_imdb_party
+      correct = partial = wrong = 0
+      Film.where(["imdb_url IS NOT NULL"]).each do |film|
+        imdb = ImdbParty::Imdb.new
+        results = imdb.find_by_title(film.title)
+        if results.empty?
+          puts "Couldn't find: #{film.title}"
+        else
+          result = results.find{|r| r[:year].to_s == film.year.to_s } if film.year.present?
+          result ||= results.first
+          if result[:imdb_id] != film.imdb_id
+            puts "Diff #{ film.title }: -#{film.imdb_id} +#{result[:imdb_id]}"
+            puts "#{imdb.find_movie_by_id(result[:imdb_id]).title}"
+            wrong += 1
+          else
+            correct +=1
+          end
+        end
+        movie = imdb.find_movie_by_id(film.imdb_id)
+        if movie.blank?
+          puts "Couldn't find #{film.imdb_id}"
+        end
+      end
+      puts "Stats: correct:#{correct} partial:#{partial} wrong:#{wrong}"
+    end
   end
 end

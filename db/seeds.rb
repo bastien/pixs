@@ -5,3 +5,7 @@
 #
 #   cities = City.create([{ :name => 'Chicago' }, { :name => 'Copenhagen' }])
 #   Mayor.create(:name => 'Daley', :city => cities.first)
+
+# Importing movies from CPH PIX website
+MovieImport.fetch_from_festival
+MovieImport.fetch_from_youtube

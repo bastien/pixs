@@ -4,6 +4,7 @@ gem 'rails', '3.0.5'
 gem 'json'
 gem 'nokogiri'
 gem 'jquery-rails'
+gem 'imdb_party', '0.4.0'
 
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'

@@ -17,8 +17,7 @@
     (<% if film.imdb_url.present? %>
       <%= link_to "imdb", film.imdb_url %>
       <% if film.trailer_url %>
-        | <%#= link_to "trailer", film.trailer_url %>
-        <%= link_to "trailer", film_path(film), :remote => true %>
+        | <%= link_to "trailer", film_path(film), :remote => true %>
       <% end %>
     <% else %>
       <%= link_to "add imdb url", edit_film_path(film) %>
