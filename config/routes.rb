@@ -1,6 +1,6 @@
 Films::Application.routes.draw do
   
-  resources :films
+  resources :films, :only => [:index, :show]
   
   # The priority is based upon order of creation:
   # first created -> highest priority.
