@@ -65,7 +65,7 @@ class Film < ActiveRecord::Base
   def update_imdb_attributes(movie)
     update_attributes(
       :imdb_url     => "http://www.imdb.com/title/"+movie.imdb_id+"/",
-      :imdb_rating  => movie.rating,
+      :imdb_rating  => (movie.rating || 0.0),
       #:country      => movie_hash[:Country],
       :genre        => movie.genres.join(', '),
       :synopsis     => movie.plot,
