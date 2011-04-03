@@ -15,8 +15,25 @@ h1{
   font-weight: normal;
 }
 
+h1 a{
+  color:white;
+  text-decoration:none;
+}
+
 #top{
   background-color: gray;
+}
+
+#top #user_login{
+  position:absolute;
+  top:5px;
+  right:10px;
+  font-size: 10pt;
+  color: white;
+}
+
+#top #user_login a{
+  color: white;
 }
 
 ul{
@@ -93,4 +110,35 @@ ul#sortingOptions li.first{
 
 .rating.red{
   background-color: #FC1C12;
+}
+
+.rating .bookmark{
+  display:none;
+}
+
+.rating.flipping:hover{
+  background-color: lightgray;
+}
+
+.rating.flipping:hover .score{
+  display:none;
+}
+
+.rating.flipping:hover .bookmark{
+  display:block;
+}
+
+.rating .bookmark input[type=submit]{
+  margin-top:5px;
+  width: 40px;
+  height: 40px;
+  display:block;
+  background: url('/images/plus_inactive.png') 2px 2px no-repeat;
+  text-indent: -999px;
+  border: 0px;
+  cursor: pointer;
+}
+
+.rating .bookmark input[type=submit].selected{
+  background: url('/images/plus.png') 2px 2px no-repeat;
 }

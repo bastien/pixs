@@ -1,9 +1,16 @@
 <li id="<%= dom_id(film) %>">
-  <div class="rating left <%= rating_color(film.imdb_rating) %>">
-    <% if film.imdb_rating.nil? || film.imdb_rating == 0.0 %>
-      0.0
-    <% else %>
-      <%= film.imdb_rating %>
+  <div class="rating left <%= rating_color(film.imdb_rating) %> <%= "flipping" if current_user %>">
+    <div class="score">
+      <% if film.imdb_rating.nil? || film.imdb_rating == 0.0 %>
+        0.0
+      <% else %>
+        <%= film.imdb_rating %>
+      <% end %>
+    </div>
+    <% if current_user%>
+      <div class="bookmark selected" id="film_<%= film.id %>_bookmark">
+        <%= render 'bookmarks/bookmark', :film => film, :selected => (@bookmarked_films.include? film) %>
+      </div>
     <% end %>
   </div>
   <div class="title left">

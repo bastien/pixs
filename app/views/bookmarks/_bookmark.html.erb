@@ -1,0 +1,8 @@
+<% if selected %>
+  <%= button_to "Unlike", bookmark_path(film), :method => 'delete', :remote => true, :class => 'selected' %>
+<% else %>
+  <%= form_for Bookmark.new, :remote => true do |f| %>
+    <%= f.hidden_field :film_id, :value => film.id %>
+    <%= submit_tag "Like" %>
+  <% end %>
+<% end %>

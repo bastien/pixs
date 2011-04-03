@@ -5,6 +5,7 @@ gem 'json'
 gem 'nokogiri'
 gem 'jquery-rails'
 gem 'imdb_party', '0.4.0'
+gem 'omniauth'
 
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'

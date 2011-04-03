@@ -1,0 +1,14 @@
+<% if @bookmarks.present? %>
+<ul id="sortingOptions">
+  <li id="sortIMDB" class="first active"><a href="#">IMDB rating</a></li>
+  <li id="sortAZ"><a href="#">Alphabetically</a></li>
+</ul>
+
+<ul id="filmList">
+  <% @bookmarks.each do |bookmark| %>
+    <%= render bookmark.film %>
+  <% end %>
+</ul>
+<% else %>
+<p>You haven't bookmarked any movie yet. <%= link_to "Go back to the film list", films_path %></p>
+<% end %>

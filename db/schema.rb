@@ -10,24 +10,46 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110326130553) do
+ActiveRecord::Schema.define(:version => 20110403160751) do
 
-  create_table "films", :force => true do |t|
-    t.string   "title"
-    t.boolean  "favorite"
-    t.string   "thumbnail_url"
-    t.string   "imdb_url"
-    t.float    "imdb_rating"
-    t.string   "country"
-    t.string   "genre"
-    t.text     "synopsis"
-    t.string   "trailer_url"
+  create_table "bookmarks", :force => true do |t|
+    t.integer  "user_id"
+    t.integer  "film_id"
+    t.integer  "position"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "festival_url"
-    t.string   "director"
-    t.string   "writer"
-    t.integer  "year"
   end
+
+  add_index "bookmarks", ["film_id"], :name => "index_bookmarks_on_film_id"
+  add_index "bookmarks", ["user_id"], :name => "index_bookmarks_on_user_id"
+
+  create_table "films", :force => true do |t|
+    t.string    "title"
+    t.boolean   "favorite"
+    t.string    "thumbnail_url"
+    t.string    "imdb_url"
+    t.float     "imdb_rating"
+    t.string    "country"
+    t.string    "genre"
+    t.text      "synopsis"
+    t.string    "trailer_url"
+    t.timestamp "created_at"
+    t.timestamp "updated_at"
+    t.string    "festival_url"
+    t.string    "director"
+    t.string    "writer"
+    t.integer   "year"
+  end
+
+  create_table "users", :force => true do |t|
+    t.string   "provider"
+    t.string   "uid"
+    t.string   "name"
+    t.string   "secret_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "users", ["secret_id"], :name => "index_users_on_secret_id"
 
 end

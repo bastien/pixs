@@ -9,7 +9,15 @@
 <body>
 <div id="dialog"></div>
 <div id="top">
-  <h1>CPH:PIX 2011</h1>
+  <h1><%= link_to "CPH:PIX 2011", films_path %></h1>
+  <div id="user_login">
+    <% if current_user %>
+      <%= link_to current_user.name, "/users/#{current_user.secret_id}" %> | 
+      <%= link_to "Sign Out", signout_path %>
+    <% else %>
+      <%= link_to "Sign in with Facebook", "/auth/facebook" %>
+    <% end %>
+  </div>
 </div>
 
 <%= yield %>

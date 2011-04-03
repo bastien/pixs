@@ -1,0 +1,1 @@
+$('#film_<%= @bookmark.film_id %>_bookmark').html("<%= escape_javascript(render 'bookmark', :film => @bookmark.film, :selected => @selected) %>");
