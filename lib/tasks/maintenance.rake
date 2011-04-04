@@ -10,4 +10,11 @@ namespace :maintenance do
       MovieImport.get_year_from_festival(film)
     end
   end
+  
+  desc "Import showtimes"
+  task :import_showtimes => :environment do
+    Film.all.each do |film|
+      MovieImport.get_display_times_from_festival(film)
+    end
+  end
 end

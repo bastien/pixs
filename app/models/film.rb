@@ -4,6 +4,10 @@ require 'nokogiri'
 class Film < ActiveRecord::Base
   attr_accessor :skip_imdb_url
   
+  has_many :projections
+  
+  validates_uniqueness_of :showtime, :scope => :film_id
+  
   after_create :init_imdb_data
   after_save :get_imdb_data
   

@@ -53,6 +53,16 @@ class MovieImport
       end
     end
     
+    def get_display_times_from_festival(film)
+      doc = Nokogiri::HTML(open(film.festival_url))
+      info = doc.css("ul.viewings li span.details").each do |showtime|
+        details = showtime.content.split(" | ")
+        date_time = DateTime.strptime(details[0..1].join(" "), '%d/%m %H:%M')
+        venue = details[3]
+        film.projections.create(:venue => venue, :showtime => date_time)
+      end
+    end
+    
     def scan_page(url)
       doc = Nokogiri::HTML(open(url))
       movie_title_elements = doc.css(".movie-list-title")

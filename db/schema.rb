@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110403160751) do
+ActiveRecord::Schema.define(:version => 20110404182819) do
 
   create_table "bookmarks", :force => true do |t|
     t.integer  "user_id"
@@ -40,6 +40,17 @@ ActiveRecord::Schema.define(:version => 20110403160751) do
     t.string    "writer"
     t.integer   "year"
   end
+
+  create_table "projections", :force => true do |t|
+    t.datetime "showtime"
+    t.string   "venue"
+    t.integer  "film_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "projections", ["film_id"], :name => "index_projections_on_film_id"
+  add_index "projections", ["showtime"], :name => "index_projections_on_showtime"
 
   create_table "users", :force => true do |t|
     t.string   "provider"
