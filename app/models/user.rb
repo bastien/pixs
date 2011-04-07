@@ -1,5 +1,5 @@
 class User < ActiveRecord::Base
-  has_many :bookmarks
+  has_many :bookmarks, :dependent => :destroy
   has_many :films, :through => :bookmarks
   
   before_create :generate_secret_id
