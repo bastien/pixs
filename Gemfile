@@ -31,7 +31,16 @@ gem 'sqlite3'
 # Bundle gems for the local environment. Make sure to
 # put test-only gems in this group so their generators
 # and rake tasks are available in development mode:
-group :development do
+group :development, :test do
+  gem 'factory_girl_rails'
   gem 'wirble'
+  gem 'rails3-generators'
+  gem 'rspec-rails'
   gem 'ruby-debug'
+end
+
+group :test do
+  gem 'shoulda'
+  gem 'rr'
+  gem 'timecop'
 end

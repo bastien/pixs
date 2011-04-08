@@ -39,5 +39,20 @@ module Films
 
     # Configure sensitive parameters which will be filtered from the log file.
     config.filter_parameters += [:password]
+    
+    config.generators do |g|
+      g.orm                 :active_record
+      g.template_engine     :erb
+      g.test_framework      :rspec,
+        # :model_specs      => false,
+        :request_specs    => false,
+        :routing_specs    => false,
+        :view_specs       => false,
+        :controller_specs => false,
+        :helper_specs     => false
+      g.fixture_replacement :factory_girl, :dir => "spec/factories"
+      g.stylesheets         false
+      g.helper              false
+    end
   end
 end
