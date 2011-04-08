@@ -1,4 +1,9 @@
 <li id="<%= dom_id(film) %>">
+  <% if defined?(showtime) %>
+    <div class="time left">
+      <%= showtime.strftime("%H:%M") %>
+    </div>
+  <% end %>
   <div class="rating left <%= rating_color(film.imdb_rating) %> <%= "flipping" if current_user %>">
     <div class="score">
       <% if film.imdb_rating.nil? || film.imdb_rating == 0.0 %>

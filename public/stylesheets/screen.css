@@ -90,6 +90,11 @@ ul#sortingOptions li.first{
   color: darkgrey;
 }
 
+.time{
+  margin-right: 10px;
+  color: gray;
+}
+
 .rating{
   width: 50px;
   height: 50px;
@@ -175,4 +180,8 @@ ul#sortingOptions li.first{
 
 #calendar li.day:last-child{
   border: none;
+}
+
+#calendar .projectedMovies ul.movieList{
+  padding-left: 10px;
 }

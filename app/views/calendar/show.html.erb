@@ -16,9 +16,9 @@
         </div>
       </div>
       <div class="projectedMovies left">
-        <ul>
+        <ul class="movieList">
           <% projections.each do |projection| %>
-            <%= render projection.film %>
+            <%= render projection.film, :showtime => projection.showtime %>
           <% end %>
         </ul>
       </div>
