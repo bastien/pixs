@@ -1,11 +1,11 @@
 source 'http://rubygems.org'
 
-gem 'rails', '3.0.5'
+gem 'rails',        '3.0.5'
 gem 'json'
 gem 'nokogiri'
 gem 'jquery-rails'
-gem 'imdb_party', '0.4.0'
-gem 'omniauth'
+gem 'imdb_party',   '0.5.0'
+gem 'omniauth',     '0.2.0'
 
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
