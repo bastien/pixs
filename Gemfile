@@ -4,7 +4,7 @@ gem 'rails',        '3.0.5'
 gem 'json'
 gem 'nokogiri'
 gem 'jquery-rails'
-gem 'imdb_party',   '0.5.0'
+gem 'imdb_party',   '0.6.0'
 gem 'omniauth',     '0.2.0'
 
 # Bundle edge Rails instead:
