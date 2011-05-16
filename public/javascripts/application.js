@@ -36,4 +36,8 @@ $(function(){
     modal: true,
     close: function(event, ui){ $('#dialog').html("");}
   });
+  
+  $('#advancedFormLink').live('click', function(e){
+    $('#advancedForm').toggle();
+  });
 });

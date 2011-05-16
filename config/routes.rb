@@ -1,7 +1,7 @@
 Films::Application.routes.draw do
   
   resources :lists, :shallow => true do
-    resources :films, :only => [:index, :show]
+    resources :films
     resource :calendar, :only => [:show], :controller => 'calendar'
   end
   
