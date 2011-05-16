@@ -4,6 +4,7 @@ class FilmsController < ApplicationController
   
   def new
     @film = @list.films.build
+    @film.projections.build
   end
   
   def create
@@ -35,8 +36,8 @@ class FilmsController < ApplicationController
     @film = Film.find(params[:id])
     @list = @film.list
     redirect_to list_films_path(@list), :alert => "You don't have access to modify this list" and return false unless @list.user == current_user
-    @film.update(params["film"])
-    redirect_to films_path
+    @film.update_attributes(params["film"])
+    redirect_to list_films_path(@list)
   end
   
   def destroy

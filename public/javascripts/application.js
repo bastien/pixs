@@ -41,3 +41,21 @@ $(function(){
     $('#advancedForm').toggle();
   });
 });
+
+function addRemoveProjection(new_projection) {
+  // Add task
+  $('.addProjection').click(function(event) {
+    event.preventDefault();
+    var new_id = new Date().getTime();
+    var regexp = new RegExp('new_projection', 'g');
+    $(this).parent().before(new_projection.replace(regexp, new_id));
+    $(this).parent().prev().find('input:first').focus();
+  });
+  
+  // Remove task
+  $('.removeProjection').live('click', function(event) {
+    event.preventDefault();
+    $(this).closest('.inputs').find('input[type=hidden]').val('1');
+    $(this).closest('.inputs').hide();
+  });
+}

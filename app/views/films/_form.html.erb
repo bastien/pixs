@@ -1,0 +1,34 @@
+<%= content_tag :div, :class => 'inputs' do %>
+  <%= f.input :title %>
+  <%= f.input :year, :as => :string %>
+<% end %>
+<%= link_to "Advanced Form", "#advancedForm", :id => 'advancedFormLink' %>
+<%= content_tag :div, :class => 'inputs', :id=>'advancedForm', :style => "display:none" do %>
+  <%= f.input :imdb_url %>
+  <%= f.input :trailer_url %>
+  <%= f.input :writer %>
+  <%= f.input :genre %>
+  <%= f.input :country, :as => :string %>
+  <%= f.input :director %>
+  <%= f.input :festival_url %>
+<% end %>
+
+<%= content_tag :div, :id => "secondaryInput" do %>
+  <%= f.fields_for :projections do |projection| %>
+    <%= render 'projection', :f => projection %>
+  <% end %>
+  <div class="button full">
+    <%= link_to "Add another projection", "#", :class => "addProjection" %>
+  </div>
+  <% @new_projection = f.fields_for(:projections, Projection.new, :child_index => "new_projection") { |projection| render 'projection', :f => projection } %>
+<% end %>
+
+<%= content_tag :div, :class => 'buttons' do %>
+  <%= f.button :submit %>
+<% end %>
+
+<script type="text/javascript">
+  $(function() {
+    addRemoveProjection('<%= escape_javascript(@new_projection) %>');
+  });
+</script>

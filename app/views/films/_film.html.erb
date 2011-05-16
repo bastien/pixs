@@ -28,7 +28,7 @@
   <div class="left details">
     <% if film.imdb_url.present? %>
       ( <%= link_to "imdb", film.imdb_url %>
-      <% if film.trailer_url %>
+      <% if film.trailer_url.present? %>
         | <%= link_to "trailer", film_path(film), :remote => true %>
       <% end %> )
     <% end %>
