@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>CPH PIX 2011 Films</title>
+  <title>PIXS<%= " - " + @list.name if @list && @list.persisted? %></title>
   <%= stylesheet_link_tag 'screen', 'flick/jquery-ui-1.8.11.custom' %>
   <%= javascript_include_tag 'jquery.min', 'jquery-ui-1.8.11.custom.min', 'rails', 'sorter', 'application' %>
   <%= csrf_meta_tag %>
@@ -11,7 +11,7 @@
 <div id="top">
   <h1>
     <%= link_to "PIXS", lists_path %>
-    <%= link_to "[ #{@list.name} ]", list_films_path(@list) if @list && @list.persisted? %>
+    <%= link_to "<em>[</em>".html_safe + " #{@list.name} "+ "<em>]</em>".html_safe, list_films_path(@list) if @list && @list.persisted? %>
   </h1>
   <div id="user_login">
     <% if current_user %>
@@ -23,10 +23,13 @@
   </div>
 </div>
 
+<%= content_tag :div, notice, :class => "notice", :id => "flash"  unless notice.blank? %>
+<%= content_tag :div, alert, :class => "alert", :id => "flash"    unless alert.blank? %>
+
 <%= yield %>
 
 <div id="footer">
-  <p>This site is not affiliated with CPH:PIX, the information you find here might not be accurate -
+  <p>Please be aware that the information you find here might not be accurate -
     <a href="http://twitter.com/vaucherb">Twitter</a> - 
     <a href="http://flattr.com/thing/153617/Pixs" target="_blank">Flattr this!</a> -
     <a href="https://github.com/bastien/pixs">Fork me on Github!</a>

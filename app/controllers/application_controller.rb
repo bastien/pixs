@@ -9,7 +9,7 @@ class ApplicationController < ActionController::Base
   end
   
   def authenticate_user!
-    redirect_to root_url and return false if current_user.nil?
+    redirect_to root_url, :alert => 'You need to login to perfom this action' and return false if current_user.nil?
     true
   end
 end

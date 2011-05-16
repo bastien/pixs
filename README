@@ -1,6 +1,6 @@
 == Pixs
 
-Pixs is a very simple Rails application displaying CPH:PIX movies sorted by IMDB ratings
+Pixs is a very simple Rails application displaying movie lists sorted by IMDB ratings
 
 == Install gems
 
