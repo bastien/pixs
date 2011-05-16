@@ -17,4 +17,13 @@ namespace :maintenance do
       MovieImport.get_display_times_from_festival(film)
     end
   end
+  
+  desc "Initial movie list"
+  task :create_cphpix => :environment do
+    list = List.create(:name => 'CPH:PIX')
+    # make sure that there is no validation on the user field at this point
+    Film.all.each do |film|
+      film.update_attribute(:list_id, list.id)
+    end
+  end
 end

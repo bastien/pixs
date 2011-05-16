@@ -9,7 +9,10 @@
 <body>
 <div id="dialog"></div>
 <div id="top">
-  <h1><%= link_to "CPH:PIX 2011", films_path %></h1>
+  <h1>
+    <%= link_to "PIXS", lists_path %>
+    <%= link_to "[ #{@list.name} ]", list_films_path(@list) if @list && @list.persisted? %>
+  </h1>
   <div id="user_login">
     <% if current_user %>
       <%= link_to current_user.name, "/users/#{current_user.secret_id}" %> | 

@@ -1,0 +1,4 @@
+<li id="<%= dom_id(list) %>" class="moviesList">
+  <%= link_to list.name, list_films_path(list) %>
+  <span class='details'><%= list.films.size %> movies</span>
+</li>

@@ -1,6 +1,6 @@
 <ul id="sortingOptions">
-  <li class="first "><%= link_to "IMDB rating", films_path %></li>
-  <li><%= link_to "Alphabetically", films_path %></li>
+  <li class="first "><%= link_to "IMDB rating", list_films_path(@list) %></li>
+  <li><%= link_to "Alphabetically", list_films_path(@list) %></li>
   <li class="active"><%= link_to "Calendar", '#' %></li>
 </ul>
 

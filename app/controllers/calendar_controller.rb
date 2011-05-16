@@ -1,6 +1,7 @@
 class CalendarController < ApplicationController
   def show
-    projections = Projection.where(['showtime >= ?', Time.now]).order('showtime')
+    @list = List.find(params[:list_id])
+    projections = @list.projections.where(['showtime >= ?', Time.now]).order('showtime')
     @projection_days = projections.group_by do |projection| 
       projection.showtime.to_date
     end

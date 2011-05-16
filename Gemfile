@@ -6,7 +6,8 @@ gem 'nokogiri'
 gem 'jquery-rails'
 gem 'imdb_party',   '0.6.0'
 gem 'omniauth',     '0.2.0'
-
+gem 'simple_form'
+gem 'fastercsv'
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
 
@@ -33,13 +34,18 @@ gem 'sqlite3'
 # and rake tasks are available in development mode:
 group :development, :test do
   gem 'factory_girl_rails'
+  gem 'heroku_san'
   gem 'wirble'
   gem 'rails3-generators'
   gem 'rspec-rails'
   gem 'ruby-debug'
+  gem 'taps'
 end
 
 group :test do
+  gem 'rb-fsevent', :require => false
+  gem 'guard'
+  gem 'guard-rspec'
   gem 'shoulda'
   gem 'rr'
   gem 'timecop'

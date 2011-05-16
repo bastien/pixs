@@ -1,0 +1,26 @@
+{ "films" : [
+  {
+    "writer":"Kaneo Ikegami, Daisuke Tengan",
+    "country":"Japan, UK",
+    "title":"13 Assassins",
+    "director":"Takashi Miike",
+    "trailer_url":"http://www.youtube.com/watch?v=nQfnsrGaD5k&html5=True",
+    "genre":"Action",
+    "imdb_url":"http://www.imdb.com/title/tt1436045/",
+    "year":2010,
+    "festival_url":"http://www.cphpix.dk/p/film.lasso?ser=1326&s=",
+    "projections_attributes":[
+      {"showtime":"2011-09-23T20:00:00Z","venue":"Empire"},
+      {"showtime":"2011-09-24T20:00:00Z","venue":"Grand"}
+    ]
+  },
+  {
+    "writer":"Kuang Ni",
+    "country":"Hong Kong",
+    "title":"The 36th Chamber of Shaolin",
+    "director":"Chia-Liang Liu",
+    "genre":"Action",
+    "imdb_url":"http://www.imdb.com/title/tt0078243/",
+    "year":1978
+  }
+]}

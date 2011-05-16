@@ -20,6 +20,18 @@ h1 a{
   text-decoration:none;
 }
 
+h2{
+  margin-left: 20px;
+}
+
+form{
+  margin :20px;
+}
+
+form .buttons{
+  margin-top: 20px;
+}
+
 #top{
   background-color: gray;
 }
@@ -184,4 +196,13 @@ ul#sortingOptions li.first{
 
 #calendar .projectedMovies ul.movieList{
   padding-left: 10px;
+}
+
+.moviesList{
+  font-size: 24pt;
+}
+
+.moviesList a{
+  text-decoration: none;
+  color: black;
 }

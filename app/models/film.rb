@@ -4,7 +4,10 @@ require 'nokogiri'
 class Film < ActiveRecord::Base
   attr_accessor :skip_imdb_url
   
+  belongs_to :list
   has_many :projections, :dependent => :destroy
+  
+  accepts_nested_attributes_for :projections
   
   after_create :init_imdb_data
   after_save :get_imdb_data

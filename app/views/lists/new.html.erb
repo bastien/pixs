@@ -1,0 +1,10 @@
+<h2>New Films List</h2>
+<%= simple_form_for @list, :html => {:multipart => true} do |f| %>
+  <%= content_tag :div, :class => 'inputs' do %>
+    <%= f.input :name %>
+    <%= f.input :file, :as => :file %>
+  <% end %>
+  <%= content_tag :div, :class => 'buttons' do %>
+    <%= f.button :submit %>
+  <% end %>
+<% end %>

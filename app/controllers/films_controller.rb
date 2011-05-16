@@ -9,7 +9,8 @@ class FilmsController < ApplicationController
   end
   
   def index
-    @films = Film.order("imdb_rating DESC")
+    @list = List.find(params[:list_id])
+    @films = @list.films.order("imdb_rating DESC")
     @bookmarked_films = current_user.present? ? current_user.films.to_a : []
   end
   
