@@ -6,11 +6,11 @@ class ListsController < ApplicationController
   end
   
   def create
-    @list = current_user.lists.create(params[:list])
+    @list = current_user.lists.create(params[:list].update(:user => current_user))
     redirect_to list_films_path(@list)
   end
   
   def index
     @lists = List.all
-  end  
+  end
 end
