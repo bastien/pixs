@@ -16,6 +16,9 @@ class Film < ActiveRecord::Base
     if !@skip_imdb_url && imdb_url_changed? && imdb_url.present?
       puts "[imdb_url] changed"
       update_imdb_data
+    elsif !@skip_imdb_url && imdb_url_changed? && imdb_url.blank?
+      @skip_imdb_url = true
+      update_attribute(:imdb_rating, 0.0)
     end
   end
   

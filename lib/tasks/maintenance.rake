@@ -4,7 +4,7 @@ namespace :maintenance do
     Film.all.map(&:update_imdb_data)
   end
   
-  desc "Updates IMDB Data on all movies"
+  desc "Updates year from festival website"
   task :retrieve_dates => :environment do
     Film.where(:year => nil).where(["festival_url IS NOT NULL"]).each do |film|
       MovieImport.get_year_from_festival(film)
@@ -18,11 +18,16 @@ namespace :maintenance do
     end
   end
   
+  desc "Import movies from festival"
+  task :import_movies => :environment do
+    MovieImport.fetch_from_festival
+  end
+  
   desc "Initial movie list"
   task :create_cphpix => :environment do
-    list = List.create(:name => 'CPH:PIX 2011')
+    list = List.create(:name => 'CPH:PIX 2012')
     # make sure that there is no validation on the user field at this point
-    Film.all.each do |film|
+    Film.where(:list_id => nil).each do |film|
       film.update_attribute(:list_id, list.id)
     end
   end

@@ -22,15 +22,11 @@ class MovieImport
     end
     
     def fetch_from_festival
-      urls = [
-        "http://www.cphpix.dk/p/tit.lasso",
-        "http://www.cphpix.dk/p/tit.lasso?&-skiprecords=50",
-        "http://www.cphpix.dk/p/tit.lasso?&-skiprecords=100",
-        "http://www.cphpix.dk/p/tit.lasso?&-skiprecords=150",
-        "http://www.cphpix.dk/p/tit.lasso?&-skiprecords=200"
-      ]
-      movies = urls.map do |url|
-        scan_page(url)
+      base_url = 'http://www.cphpix.dk/p/tit.lasso?alpha='
+      indexes = ['1']
+      indexes += ('A'..'Z').to_a 
+      movies = indexes.map do |index|
+        scan_page(base_url+index)
       end.flatten
       
       movies.each do |movie|
@@ -45,11 +41,13 @@ class MovieImport
     
     def get_year_from_festival(film)
       doc = Nokogiri::HTML(open(film.festival_url))
-      info = doc.css(".header .text p").first.content
-      match_data = info.match(/\s\d{4}\s/)
-      if match_data.present?
-        year = match_data[-1].strip.to_i
-        film.update_attribute(:year, year)
+      info = doc.css(".header .text p").first.try(:content)
+      if info
+        match_data = info.match(/\s\d{4}\s/)
+        if match_data.present?
+          year = match_data[-1].strip.to_i
+          film.update_attribute(:year, year)
+        end
       end
     end
     
