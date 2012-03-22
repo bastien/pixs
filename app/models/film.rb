@@ -7,6 +7,8 @@ class Film < ActiveRecord::Base
   belongs_to :list
   has_many :projections, :dependent => :destroy
   
+  default_scope order('imdb_rating DESC')
+  
   accepts_nested_attributes_for :projections, :allow_destroy => true, :reject_if => proc { |attributes| attributes['venue'].blank? }
   
   after_create :init_imdb_data

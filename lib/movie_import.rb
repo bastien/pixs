@@ -52,6 +52,7 @@ class MovieImport
     end
     
     def get_display_times_from_festival(film)
+      puts "Getting display times for : #{film.title} (#{film.id})"
       doc = Nokogiri::HTML(open(film.festival_url))
       info = doc.css("ul.viewings li span.details").each do |showtime|
         details = showtime.content.split(" | ")
