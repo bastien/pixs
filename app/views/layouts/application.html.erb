@@ -18,7 +18,7 @@
       <%= link_to current_user.name, "/users/#{current_user.secret_id}" %> | 
       <%= link_to "Sign Out", signout_path %>
     <% else %>
-      <%#= link_to "Sign in with Facebook", "/auth/facebook" %>
+      <%= link_to "Sign in with Facebook", "/auth/facebook" %>
     <% end %>
   </div>
 </div>
