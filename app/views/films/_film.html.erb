@@ -42,7 +42,7 @@
   <div class="left details director">
     <%= "- #{film.director}" if film.director.present? %>
   </div>
-  <% if film.list.user == current_user %>
+  <% if ENV['edit'] == 'on' %>
     <div class="actions">
       <%= link_to "Edit", edit_film_path(film) %>
       <%= link_to "Delete", film_path(film), :method => :delete, :confirm => "Are you sure?" %>

@@ -1,6 +1,8 @@
 <ul id='moviesLists'>
   <%= render @lists %>
 </ul>
-<div id='actions'>
-  <%= link_to "+ New list", new_list_path %>
-</div>
+<% if ENV['edit'] == 'on' %>
+  <div id='actions'>
+    <%= link_to "+ New list", new_list_path %>
+  </div>
+<% end %>

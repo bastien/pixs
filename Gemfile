@@ -34,7 +34,8 @@ gem 'sqlite3'
 # and rake tasks are available in development mode:
 group :development, :test do
   gem 'factory_girl_rails'
-  gem 'heroku_san'
+  gem 'heroku', '2.21.3'
+  # gem 'heroku_san', '2.1.0'
   gem 'wirble'
   gem 'rails3-generators'
   gem 'rspec-rails'

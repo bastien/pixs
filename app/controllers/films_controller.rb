@@ -29,13 +29,13 @@ class FilmsController < ApplicationController
   def edit
     @film = Film.find(params[:id])
     @list = @film.list
-    redirect_to list_films_path(@list), :alert => "You don't have access to modify this list" and return false unless @list.user == current_user
+    redirect_to list_films_path(@list), :alert => "You don't have access to modify this list" and return false unless ENV['edit'] == 'on'
   end
   
   def update
     @film = Film.find(params[:id])
     @list = @film.list
-    redirect_to list_films_path(@list), :alert => "You don't have access to modify this list" and return false unless @list.user == current_user
+    redirect_to list_films_path(@list), :alert => "You don't have access to modify this list" and return false unless ENV['edit'] == 'on'
     @film.update_attributes(params["film"])
     redirect_to list_films_path(@list)
   end
@@ -43,7 +43,7 @@ class FilmsController < ApplicationController
   def destroy
     @film = Film.find(params[:id])
     @list = @film.list
-    redirect_to list_films_path(@list), :alert => "You don't have access to modify this list" and return false unless @list.user == current_user
+    redirect_to list_films_path(@list), :alert => "You don't have access to modify this list" and return false unless ENV['edit'] == 'on'
     @film.destroy
     redirect_to list_films_path(@list)
   end
@@ -52,6 +52,6 @@ class FilmsController < ApplicationController
   
   def load_and_authorize_list
     @list = List.find(params[:list_id])
-    redirect_to list_films_path(@list), :alert => "You don't have access to modify this list" and return false unless @list.user == current_user
+    redirect_to list_films_path(@list), :alert => "You don't have access to modify this list" and return false unless @ENV['edit'] == 'on'
   end
 end
