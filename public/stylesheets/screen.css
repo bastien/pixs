@@ -104,8 +104,17 @@ ul#sortingOptions li.first{
 }
 
 .time{
+  padding-top: 10px;
   margin-right: 10px;
   color: gray;
+  line-height: 14pt;
+  width: 80px;
+}
+
+.venue{
+  margin: 0px;
+  padding: 0px;
+  font-size: 8pt;
 }
 
 .rating{

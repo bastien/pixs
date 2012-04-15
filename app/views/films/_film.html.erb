@@ -2,6 +2,9 @@
   <% if defined?(showtime) %>
     <div class="time left">
       <%= showtime.strftime("%H:%M") %>
+      <% if defined?(venue) && venue.present? %>
+        <div class='venue'><%= venue %></div>
+      <% end %>
     </div>
   <% end %>
   <div class="rating left <%= rating_color(film.imdb_rating) %> <%= "flipping" if current_user %>">
@@ -20,14 +23,14 @@
   </div>
   <div class="title left">
     <% if film.festival_url.present? %>
-      <%= link_to film.title, film.festival_url %>
+      <%= link_to film.title, film.festival_url, :target => '_blank' %>
     <% else %>
       <%= film.title %>
     <% end %>
   </div>
   <div class="left details">
     <% if film.imdb_url.present? %>
-      ( <%= link_to "imdb", film.imdb_url %>
+      ( <%= link_to "imdb", film.imdb_url, :target => '_blank' %>
       <% if film.trailer_url.present? %>
         | <%= link_to "trailer", film_path(film), :remote => true %>
       <% end %> )

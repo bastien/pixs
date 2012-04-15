@@ -6,7 +6,7 @@
 
 <ul id="calendar">
   <% @projection_days.each do |day, projections| %>
-    <li class="day">
+    <li class="day" id="<%= day.strftime("%d-%m-%Y") %>">
       <div class="calendarDay left">
         <div class="month">
           <%= day.strftime("%B") %>
@@ -18,7 +18,7 @@
       <div class="projectedMovies left">
         <ul class="movieList">
           <% projections.each do |projection| %>
-            <%= render projection.film, :showtime => projection.showtime %>
+            <%= render projection.film, :showtime => projection.showtime, :venue => projection.venue %>
           <% end %>
         </ul>
       </div>
